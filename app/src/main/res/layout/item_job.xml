@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:backgroundTint="#f7f7f7"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp">
+
+    <ImageView
+   android:id="@+id/imgCover"
+        android:layout_width="130dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="240dp"
+        android:background="@drawable/img_7" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="80dp"
+        android:orientation="horizontal"
+android:gravity="center"
+        >
+
+        <ImageView
+            android:id="@+id/imgShare"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/img_9" />
+
+        <ImageView
+            android:id="@+id/imgLike"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/img_10"
+
+            />
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+
+                android:background="@drawable/img" />
+            <!-- الوقت -->
+            <TextView
+                android:id="@+id/tvTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:text="30 min"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <!-- العنوان -->
+        <TextView
+            android:id="@+id/tvJobTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+
+            android:text="Web and Mobile Development"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+        <!-- اسم الشركة -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:background="@drawable/img_1" />
+            <!-- معلومات مختصرة -->
+            <TextView
+                android:id="@+id/tvCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:text="PURE for IT Solutions"
+                android:textColor="#7B7B7B"
+                android:textSize="14sp" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/pure"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="pure"
+                android:textColor="#780000" />
+            <!-- معلومات مختصرة -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="2dp"
+                android:text="(1012416)"
+                android:textColor="#7B7B7B"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="7dp"
+                android:background="@drawable/img_3"
+
+
+                />
+
+            <TextView
+                android:id="@+id/tvViews"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dp"
+                android:text="21K"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/tvCategory"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape"
+                android:drawableStart="@drawable/img_4"
+                android:gravity="center"
+
+                android:padding="6dp"
+                android:text="Engineering"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvSalary"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape"
+
+                android:drawableStart="@drawable/img_2"
+                android:gravity="center"
+
+                android:padding="6dp"
+                android:text="100$ - 250$"
+                android:textColor="@color/black" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:weightSum="2">
+
+            <TextView
+                android:id="@+id/Years"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape"
+                android:drawableStart="@drawable/img_5"
+                android:gravity="center"
+
+                android:padding="6dp"
+                android:text="3 Years"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/days"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape"
+
+                android:drawableStart="@drawable/img_6"
+                android:gravity="center"
+
+                android:padding="6dp"
+                android:text="3 days rem."
+                android:textColor="@color/black" />
+        </LinearLayout>
+        <!-- الوصف -->
+        <TextView
+            android:id="@+id/tvDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Lorem ipsum dolor sit amet..."
+            android:textColor="#5A5A5A"
+            android:textSize="13sp" />
+
+        <!-- المهارات -->
+        <LinearLayout
+            android:id="@+id/layoutSkills"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:background="@drawable/shape2"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="Java"
+                android:textColor="#009688" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+
+                android:background="@drawable/shape2"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="JavaScript"
+                android:textColor="#009688" />
+
+            <TextView
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/shape2"
+                android:gravity="center"
+                android:padding="6dp"
+                android:text="Bootstrap"
+
+                android:textColor="#009688" />
+        </LinearLayout>
+
+        <!-- تاريخ الانتهاء -->
+        <TextView
+            android:id="@+id/tvExpire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="Expire In: 14 days"
+            android:textColor="#9E9E9E"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/jobs"
+        android:icon="@drawable/img_11"
+        android:title="Jobs" />
+
+    <item
+        android:id="@+id/bookmark"
+        android:icon="@drawable/img_12"
+        android:title="Bookmark" />
+
+    <item
+        android:id="@+id/setting"
+        android:icon="@drawable/img_13"
+        android:title="Setting" />
+
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/img_14"
+        android:title="Profile" />
+</menu>
