@@ -1,17 +1,20 @@
 package com.example.job;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+@RequiresApi(api = Build.VERSION_CODES.O)
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
     private Context context;
@@ -34,37 +37,37 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
         Job job = jobList.get(position);
 
-        holder.tvTime.setText(job.getTime());
+        holder.tvTime.setText(job.getTo_date());
         holder.tvJobTitle.setText(job.getTitle());
-        holder.tvCompany.setText(job.getCompany());
-        holder.tvCode.setText(job.getPureCode());
+        holder.tvCompany.setText(job.getWork_place());
+        holder.tvCode.setText(job.getWork_field_id());
 
-        holder.tvCategory.setText(job.getCategory());
-        holder.tvSalary.setText(String.format("%.2f", job.getSalary()));
-        holder.tvYears.setText(String.valueOf(job.getYears()));
-        holder.tvDays.setText(String.valueOf(job.getRemainingDays()));
-        holder.tvDescription.setText(job.getDescription());
+        holder.tvCategory.setText(job.getCountry_of_graduation());
+        holder.tvSalary.setText(String.format("%.2f", job.getGender_perfrence()));
+        holder.tvYears.setText(String.valueOf(job.getCountry_of_residence()));
+        holder.tvDays.setText(String.valueOf(job.getWork_experience()));
+        holder.tvDescription.setText(job.getBusiness_man_id());
 
-        if (job.getExpire() != null) {
-            holder.tvExpire.setText(job.getExpire().format(String.valueOf(dateFormatter)));
+        if (job.getWork_experience() != null) {
+            holder.tvExpire.setText(job.getWork_experience().format(String.valueOf(dateFormatter)));
         } else {
             holder.tvExpire.setText("N/A");
         }
 
-         holder.tvViews.setText(String.valueOf(job.getViews()));
+         holder.tvViews.setText(String.valueOf(job.getGender_perfrence()));
         holder.layoutSkills.removeAllViews();
-        for (String skill : job.getSkills()) {
-            TextView skillView = new TextView(context);
-            skillView.setText(skill);
-            skillView.setBackgroundResource(R.drawable.shape2);
-            skillView.setPadding(16, 8, 16, 8);
-            skillView.setTextColor(context.getResources().getColor(R.color.primary));
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(8, 0, 8, 0);
-            skillView.setLayoutParams(params);
-            holder.layoutSkills.addView(skillView);
-        }
+//        for (String skill : job.getSkills()) {
+//            TextView skillView = new TextView(context);
+//            skillView.setText(skill);
+//            skillView.setBackgroundResource(R.drawable.shape2);
+//            skillView.setPadding(16, 8, 16, 8);
+//            skillView.setTextColor(context.getResources().getColor(R.color.primary));
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+//                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//            params.setMargins(8, 0, 8, 0);
+//            skillView.setLayoutParams(params);
+//            holder.layoutSkills.addView(skillView);
+//        }
     }
 
     @Override

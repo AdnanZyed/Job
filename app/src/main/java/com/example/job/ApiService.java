@@ -7,9 +7,10 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 
 public interface ApiService {
-
     @GET("ar/api/job-seeker/all-jobs")
-    Call<List<Job>> getAllJobs(@Header("Authorization") String token);
+    Call<JobResponse> getAllJobs(@Header("Authorization") String token);
+
+
 }
 
 
