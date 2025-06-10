@@ -1,6 +1,7 @@
 package com.example.job;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,10 +18,13 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
-    private Context context;
-    private List<Job> jobList;
+
+
+
     private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
+    private static Context context;
+    private static List<Job> jobList;
     public JobAdapter(Context context, List<Job> jobList) {
         this.context = context;
         this.jobList = jobList;
@@ -36,25 +40,24 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
         Job job = jobList.get(position);
-
-        holder.tvTime.setText(job.getTo_date());
+        holder.tvTime.setText(job.getCreateTime());
         holder.tvJobTitle.setText(job.getTitle());
-        holder.tvCompany.setText(job.getWork_place());
-        holder.tvCode.setText(job.getWork_field_id());
+        holder.tvCompany.setText(job.getWorkPlace());
+        holder.tvCode.setText(job.getWorkField().getName());
+        holder.tvCategory.setText(job.getEducationField().getName());
+    //   holder.tvCategory.setText(job.getCountryOfGraduation().getName());
+        holder.tvSalary.setText(job.getEmploymentType());
+        holder.tvYears.setText(String.valueOf(job.getExperienceYear()));
+        holder.tvDays.setText(String.valueOf(job.getCountryOfResidence()));
+        holder.tvDescription.setText(job.getFileDescription());
 
-        holder.tvCategory.setText(job.getCountry_of_graduation());
-        holder.tvSalary.setText(String.format("%.2f", job.getGender_perfrence()));
-        holder.tvYears.setText(String.valueOf(job.getCountry_of_residence()));
-        holder.tvDays.setText(String.valueOf(job.getWork_experience()));
-        holder.tvDescription.setText(job.getBusiness_man_id());
+//        if (job.getWork_experience() != null) {
+//            holder.tvExpire.setText(job.getWork_experience().format(String.valueOf(dateFormatter)));
+//        } else {
+//            holder.tvExpire.setText("N/A");
+//        }
 
-        if (job.getWork_experience() != null) {
-            holder.tvExpire.setText(job.getWork_experience().format(String.valueOf(dateFormatter)));
-        } else {
-            holder.tvExpire.setText("N/A");
-        }
-
-         holder.tvViews.setText(String.valueOf(job.getGender_perfrence()));
+         holder.tvViews.setText(String.valueOf(job.getWatchesCount()));
         holder.layoutSkills.removeAllViews();
 //        for (String skill : job.getSkills()) {
 //            TextView skillView = new TextView(context);
@@ -83,6 +86,19 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    Job selectedCrop = jobList.get(position);
+                    Intent intent = new Intent(context, JobDetails.class);
+                    intent.putExtra("COURSE_ID", selectedCrop.getId());
+
+                    context.startActivity(intent);
+
+                }
+
+            });
 
             tvTime = itemView.findViewById(R.id.tvTime);
             tvJobTitle = itemView.findViewById(R.id.tvJobTitle);

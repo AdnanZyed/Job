@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:background="@android:color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:text="Take Action"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#009688"
+        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <!-- Call -->
+    <LinearLayout
+        android:id="@+id/optionCall"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@drawable/shape3"
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="21dp"
+            android:layout_height="24dp"
+            android:src="@drawable/img_19" />
+
+        <TextView
+            android:text="Call"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@drawable/img_22"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+    <!-- SMS -->
+    <LinearLayout
+        android:id="@+id/optionSMS"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@drawable/shape3"
+        android:layout_marginBottom="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/img_20"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+
+        <TextView
+            android:text="Send SMS"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:src="@drawable/img_22"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+    <!-- WhatsApp -->
+    <LinearLayout
+        android:id="@+id/optionWhatsApp"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:background="@drawable/shape3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@drawable/img_21"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_weight="1"
+            android:textColor="@color/black"
+            android:text="WhatsApp"
+            android:textSize="16sp" />
+
+        <ImageView
+            android:src="@drawable/img_22"
+            android:layout_width="20dp"
+            android:layout_height="20dp" />
+    </LinearLayout>
+
+</LinearLayout>

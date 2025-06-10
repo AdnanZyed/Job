@@ -1,62 +1,87 @@
 package com.example.job;
-import android.os.Build;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
+import android.view.MenuItem;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import java.util.List;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import androidx.fragment.app.Fragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity {
-    private RecyclerView recyclerView;
-    private static Retrofit retrofit;
-    private static final String BASE_URL = "https://fursaty.kicklance.com/";
+public class MainActivity extends AppCompatActivity
+        implements BottomNavigationView.OnNavigationItemSelectedListener {
+    BottomNavigationView bottomNavigationView;
 
-    private static final String TOKEN = "146|NmNVeKL3hmU9GJGrSf3rzFYDlUAGSM3FOIrJc3pr";
+
+    JobsFragment jobsFragment = new JobsFragment();
+    BookmarkFragment bookmarkFragment = new BookmarkFragment();
+    SettingFragment settingFragment = new SettingFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
+    Fragment activeFragment = jobsFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recyclerView = findViewById(R.id.rvJobs);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        retrofit = new Retrofit.Builder()
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
 
-        ApiService apiService = retrofit.create(ApiService.class);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.flFragment, jobsFragment)
+                .commit();
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.jobs);
 
-        apiService.getAllJobs(TOKEN).enqueue(new Callback<JobResponse>() {
-            @Override
-            public void onResponse(Call<JobResponse> call, Response<JobResponse> response) {
-                if (response.isSuccessful() && response.body() != null && response.body().isStatus()) {
-                    List<Job> jobs = response.body().getData();
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        recyclerView.setAdapter(new JobAdapter(MainActivity.this, jobs));
-                    }
-
-                } else {
-
-                    Toast.makeText(MainActivity.this, "No jobs found", Toast.LENGTH_SHORT).show();
-                    Log.e("Adnan", "Response error: " + response.code());
-                }
-
-            }
-            @Override
-            public void onFailure(Call<JobResponse> call, Throwable t) {
-                Toast.makeText(MainActivity.this, "Failed: " + t.getMessage(), Toast.LENGTH_LONG).show();
-                Log.e("TAG", "Network failure: ", t);
-            }
-        });
 
     }
+
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        Fragment selectedFragment = null;
+
+        int itemId = item.getItemId();
+
+        if (itemId == R.id.jobs) {
+            selectedFragment = jobsFragment;
+
+        } else if (itemId == R.id.bookmark) {
+            selectedFragment = bookmarkFragment;
+
+        } else if (itemId == R.id.setting) {
+            selectedFragment = settingFragment;
+
+        } else if (itemId == R.id.profile) {
+            selectedFragment = profileFragment;
+        }
+
+        if (selectedFragment != activeFragment) {
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.flFragment, selectedFragment)
+                    .commit();
+            activeFragment = selectedFragment;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+            if (!(activeFragment instanceof JobsFragment)) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.flFragment, jobsFragment)
+                        .commit();
+                activeFragment = jobsFragment;
+
+            } else {
+                super.onBackPressed();
+            }
+        }
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
+    }
+
+
 }

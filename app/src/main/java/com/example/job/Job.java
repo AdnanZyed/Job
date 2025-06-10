@@ -1,207 +1,128 @@
 package com.example.job;
 
-//package com.example.job;
-//import java.util.List;
-//public class Job {
-//
-//    private String title;
-//    private String company;
-//    private String category;
-//    private double salary;
-//    private String time;
-//    private String description;
-//    private String expire;
-//    private String pureCode;
-//    private int views;
-//    private int years;
-//    private int remainingDays;
-//    private List<String> skills;
-//    public Job(String title, String company, String category, double salary, String time,
-//               String description, String expire, String pureCode, int views,
-//               int years, int remainingDays, List<String> skills) {
-//
-//        this.title = title;
-//        this.company = company;
-//        this.category = category;
-//        this.salary = salary;
-//        this.time = time;
-//        this.description = description;
-//        this.expire = expire;
-//        this.pureCode = pureCode;
-//        this.views = views;
-//        this.years = years;
-//        this.remainingDays = remainingDays;
-//        this.skills = skills;
-//
-//    }
-//
-//
-//
-//    public String getTitle() {
-//        return title;
-//    }
-//
-//    public void setTitle(String title) {
-//        this.title = title;
-//    }
-//
-//    public String getCompany() {
-//        return company;
-//    }
-//
-//    public void setCompany(String company) {
-//        this.company = company;
-//    }
-//
-//    public String getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(String category) {
-//        this.category = category;
-//    }
-//
-//    public double getSalary() {
-//        return salary;
-//    }
-//
-//    public void setSalary(double salary) {
-//        this.salary = salary;
-//    }
-//
-//    public String getTime() {
-//        return time;
-//    }
-//
-//    public void setTime(String time) {
-//        this.time = time;
-//    }
-//
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
-//
-//    public String getExpire() {
-//        return expire;
-//    }
-//
-//    public void setExpire(String expire) {
-//        this.expire = expire;
-//    }
-//
-//    public String getPureCode() {
-//        return pureCode;
-//    }
-//
-//    public void setPureCode(String pureCode) {
-//        this.pureCode = pureCode;
-//    }
-//
-//    public int getViews() {
-//        return views;
-//    }
-//
-//    public void setViews(int views) {
-//        this.views = views;
-//    }
-//
-//    public int getYears() {
-//        return years;
-//    }
-//
-//    public void setYears(int years) {
-//        this.years = years;
-//    }
-//
-//    public int getRemainingDays() {
-//        return remainingDays;
-//    }
-//
-//    public void setRemainingDays(int remainingDays) {
-//        this.remainingDays = remainingDays;
-//    }
-//
-//    public List<String> getSkills() {
-//        return skills;
-//    }
-//
-//    public void setSkills(List<String> skills) {
-//        this.skills = skills;
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return "Job{" +
-//                "title='" + title + '\'' +
-//                ", company='" + company + '\'' +
-//                ", category='" + category + '\'' +
-//                ", salary=" + salary +
-//                ", time='" + time + '\'' +
-//                ", description='" + description + '\'' +
-//                ", expire=" + expire +
-//                ", pureCode='" + pureCode + '\'' +
-//                ", views=" + views +
-//                ", years=" + years +
-//                ", remainingDays=" + remainingDays +
-//                ", skills=" + skills +
-//                '}';
-//    }
-//}
+import com.google.gson.annotations.SerializedName;
+
+
 public class Job {
-    private String from_date;
-    private String to_date;
-    private String country_of_graduation;
-    private String country_of_residence;
-    private String work_field_id;
+
+    @SerializedName("id")
+    private int id;
+
+    @SerializedName("title")
     private String title;
-    private String work_place;
-    private String gender_perfrence;
-    private String education_level_id;
-    private String work_experience;
-    private String business_man_id;
 
-    public String getFrom_date() {
-        return from_date;
+    @SerializedName("employment_type")
+    private String employmentType;
+
+    @SerializedName("work_field_id")//في التفاصيل
+    private int workFieldId;
+
+    @SerializedName("work_place")
+    private String workPlace;
+
+    @SerializedName("country_of_employment")//في التفاصيل
+    private Country countryOfEmployment;
+
+    @SerializedName("salary")
+    private String salary;
+
+    @SerializedName("salary_show")//في التفاصيل
+    private int salaryShow;
+
+    @SerializedName("work_experience")//في التفاصيل وهي المدة
+    private int workExperience;
+
+    @SerializedName("job_valid_unite")
+    private String jobValidUnite;
+
+    @SerializedName("summary")//--------------------------------
+    private String summary;
+
+    @SerializedName("nationality_prefrence")//في التفاصيل تحت
+    private Country nationalityPreference;
+
+    @SerializedName("country_of_residence")//في التفاصيل
+    private Country countryOfResidence;
+
+    @SerializedName("gender_perfrence")//في التفاصيل
+    private String genderPreference;
+
+    @SerializedName("request_vedio")//--------------------------------
+    private int requestVideo;
+
+    @SerializedName("question")//--------------------------------
+    private String question;
+
+    @SerializedName("status")//--------------------------------
+    private int status;
+
+    @SerializedName("business_man_id")//--------------------------------
+    private int businessManId;
+
+    @SerializedName("currency_id")//--------------------------------
+    private Integer currencyId;
+
+    @SerializedName("pay_status")//--------------------------------
+    private int payStatus;
+
+    @SerializedName("education_level_id")
+    private int educationLevelId;
+
+    @SerializedName("education_feild_id")
+    private int educationFieldId;
+
+    @SerializedName("certification_id")
+    private int certificationId;
+
+    @SerializedName("file_description")
+    private String fileDescription;
+
+    @SerializedName("country_of_graduation")//--------------------------------
+    private Country countryOfGraduation;
+
+    @SerializedName("create_time")
+    private String createTime;
+
+    @SerializedName("expire_date")
+    private int expireDate;
+
+    @SerializedName("applicants")
+    private int applicants;
+
+    @SerializedName("watches_count")
+    private int watchesCount;
+
+    @SerializedName("is_favorite")
+    private boolean isFavorite;
+
+    @SerializedName("is_applied")
+    private boolean isApplied;
+
+    @SerializedName("education_level")
+    private EducationLevel educationLevel;
+
+    @SerializedName("education_feild")
+    private EducationField educationField;
+
+    @SerializedName("certification")
+    private Certification certification;
+
+    @SerializedName("experience_year")
+    private ExperienceYear experienceYear;
+
+    @SerializedName("business_man")//--------------------------------
+    private BusinessMan businessMan;
+
+    @SerializedName("work_field")//في التفاصيل
+    private WorkField workField;
+
+
+    public int getId() {
+        return id;
     }
 
-    public void setFrom_date(String from_date) {
-        this.from_date = from_date;
-    }
-
-    public String getTo_date() {
-        return to_date;
-    }
-
-    public void setTo_date(String to_date) {
-        this.to_date = to_date;
-    }
-
-    public String getCountry_of_graduation() {
-        return country_of_graduation;
-    }
-
-    public void setCountry_of_graduation(String country_of_graduation) {
-        this.country_of_graduation = country_of_graduation;
-    }
-
-    public String getCountry_of_residence() {
-        return country_of_residence;
-    }
-
-    public void setCountry_of_residence(String country_of_residence) {
-        this.country_of_residence = country_of_residence;
-    }
-
-    public String getWork_field_id() {
-        return work_field_id;
-    }
-
-    public void setWork_field_id(String work_field_id) {
-        this.work_field_id = work_field_id;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTitle() {
@@ -212,43 +133,283 @@ public class Job {
         this.title = title;
     }
 
-    public String getWork_place() {
-        return work_place;
+    public String getEmploymentType() {
+        return employmentType;
     }
 
-    public void setWork_place(String work_place) {
-        this.work_place = work_place;
+    public void setEmploymentType(String employmentType) {
+        this.employmentType = employmentType;
     }
 
-    public String getGender_perfrence() {
-        return gender_perfrence;
+    public int getWorkFieldId() {
+        return workFieldId;
     }
 
-    public void setGender_perfrence(String gender_perfrence) {
-        this.gender_perfrence = gender_perfrence;
+    public void setWorkFieldId(int workFieldId) {
+        this.workFieldId = workFieldId;
     }
 
-    public String getEducation_level_id() {
-        return education_level_id;
+    public String getWorkPlace() {
+        return workPlace;
     }
 
-    public void setEducation_level_id(String education_level_id) {
-        this.education_level_id = education_level_id;
+    public void setWorkPlace(String workPlace) {
+        this.workPlace = workPlace;
     }
 
-    public String getWork_experience() {
-        return work_experience;
+    public Country getCountryOfEmployment() {
+        return countryOfEmployment;
     }
 
-    public void setWork_experience(String work_experience) {
-        this.work_experience = work_experience;
+    public void setCountryOfEmployment(Country countryOfEmployment) {
+        this.countryOfEmployment = countryOfEmployment;
     }
 
-    public String getBusiness_man_id() {
-        return business_man_id;
+    public String getSalary() {
+        return salary;
     }
 
-    public void setBusiness_man_id(String business_man_id) {
-        this.business_man_id = business_man_id;
+    public void setSalary(String salary) {
+        this.salary = salary;
+    }
+
+    public int getSalaryShow() {
+        return salaryShow;
+    }
+
+    public void setSalaryShow(int salaryShow) {
+        this.salaryShow = salaryShow;
+    }
+
+    public int getWorkExperience() {
+        return workExperience;
+    }
+
+    public void setWorkExperience(int workExperience) {
+        this.workExperience = workExperience;
+    }
+
+    public String getJobValidUnite() {
+        return jobValidUnite;
+    }
+
+    public void setJobValidUnite(String jobValidUnite) {
+        this.jobValidUnite = jobValidUnite;
+    }
+
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
+    public Country getNationalityPreference() {
+        return nationalityPreference;
+    }
+
+    public void setNationalityPreference(Country nationalityPreference) {
+        this.nationalityPreference = nationalityPreference;
+    }
+
+    public Country getCountryOfResidence() {
+        return countryOfResidence;
+    }
+
+    public void setCountryOfResidence(Country countryOfResidence) {
+        this.countryOfResidence = countryOfResidence;
+    }
+
+    public String getGenderPreference() {
+        return genderPreference;
+    }
+
+    public void setGenderPreference(String genderPreference) {
+        this.genderPreference = genderPreference;
+    }
+
+    public int getRequestVideo() {
+        return requestVideo;
+    }
+
+    public void setRequestVideo(int requestVideo) {
+        this.requestVideo = requestVideo;
+    }
+
+    public String getQuestion() {
+        return question;
+    }
+
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public int getBusinessManId() {
+        return businessManId;
+    }
+
+    public void setBusinessManId(int businessManId) {
+        this.businessManId = businessManId;
+    }
+
+    public Integer getCurrencyId() {
+        return currencyId;
+    }
+
+    public void setCurrencyId(Integer currencyId) {
+        this.currencyId = currencyId;
+    }
+
+    public int getPayStatus() {
+        return payStatus;
+    }
+
+    public void setPayStatus(int payStatus) {
+        this.payStatus = payStatus;
+    }
+
+    public int getEducationLevelId() {
+        return educationLevelId;
+    }
+
+    public void setEducationLevelId(int educationLevelId) {
+        this.educationLevelId = educationLevelId;
+    }
+
+    public int getEducationFieldId() {
+        return educationFieldId;
+    }
+
+    public void setEducationFieldId(int educationFieldId) {
+        this.educationFieldId = educationFieldId;
+    }
+
+    public int getCertificationId() {
+        return certificationId;
+    }
+
+    public void setCertificationId(int certificationId) {
+        this.certificationId = certificationId;
+    }
+
+    public String getFileDescription() {
+        return fileDescription;
+    }
+
+    public void setFileDescription(String fileDescription) {
+        this.fileDescription = fileDescription;
+    }
+
+    public Country getCountryOfGraduation() {
+        return countryOfGraduation;
+    }
+
+    public void setCountryOfGraduation(Country countryOfGraduation) {
+        this.countryOfGraduation = countryOfGraduation;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public int getExpireDate() {
+        return expireDate;
+    }
+
+    public void setExpireDate(int expireDate) {
+        this.expireDate = expireDate;
+    }
+
+    public int getApplicants() {
+        return applicants;
+    }
+
+    public void setApplicants(int applicants) {
+        this.applicants = applicants;
+    }
+
+    public int getWatchesCount() {
+        return watchesCount;
+    }
+
+    public void setWatchesCount(int watchesCount) {
+        this.watchesCount = watchesCount;
+    }
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public boolean isApplied() {
+        return isApplied;
+    }
+
+    public void setApplied(boolean applied) {
+        isApplied = applied;
+    }
+
+    public EducationLevel getEducationLevel() {
+        return educationLevel;
+    }
+
+    public void setEducationLevel(EducationLevel educationLevel) {
+        this.educationLevel = educationLevel;
+    }
+
+    public EducationField getEducationField() {
+        return educationField;
+    }
+
+    public void setEducationField(EducationField educationField) {
+        this.educationField = educationField;
+    }
+
+    public Certification getCertification() {
+        return certification;
+    }
+
+    public void setCertification(Certification certification) {
+        this.certification = certification;
+    }
+
+    public ExperienceYear getExperienceYear() {
+        return experienceYear;
+    }
+
+    public void setExperienceYear(ExperienceYear experienceYear) {
+        this.experienceYear = experienceYear;
+    }
+
+    public BusinessMan getBusinessMan() {
+        return businessMan;
+    }
+
+    public void setBusinessMan(BusinessMan businessMan) {
+        this.businessMan = businessMan;
+    }
+
+    public WorkField getWorkField() {
+        return workField;
+    }
+
+    public void setWorkField(WorkField workField) {
+        this.workField = workField;
     }
 }
