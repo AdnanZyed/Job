@@ -6,15 +6,33 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 public class ActionBottomSheet extends BottomSheetDialogFragment {
 
-    private String phoneNumber = "0590000000"; // رقم افتراضي – عدله حسب الحاجة
+    private String phoneNumber;
 
+    public static ActionBottomSheet newInstance(String phoneNumber) {
+        ActionBottomSheet fragment = new ActionBottomSheet();
+        Bundle args = new Bundle();
+        args.putString("Phone", phoneNumber);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
+        if (getArguments() != null) {
+            phoneNumber = getArguments().getString("Phone");
+        }
+
         View view = inflater.inflate(R.layout.bottom_sheet_actions, container, false);
 
         view.findViewById(R.id.optionCall).setOnClickListener(v -> {
@@ -34,9 +52,5 @@ public class ActionBottomSheet extends BottomSheetDialogFragment {
         });
 
         return view;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
     }
 }

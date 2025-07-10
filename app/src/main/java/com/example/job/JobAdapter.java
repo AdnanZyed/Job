@@ -2,32 +2,39 @@ package com.example.job;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.time.format.DateTimeFormatter;
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
-@RequiresApi(api = Build.VERSION_CODES.O)
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
+    private Context context;
+    private List<Job> jobList;
+    private ApiService api; // ✅ إضافة متغير ApiService لاستخدامه مرة واحدة
+    String token = "Bearer 146|NmNVeKL3hmU9GJGrSf3rzFYDlUAGSM3FOIrJc3pr";
 
-
-
-    private DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-    private static Context context;
-    private static List<Job> jobList;
     public JobAdapter(Context context, List<Job> jobList) {
         this.context = context;
         this.jobList = jobList;
+
+        // ✅ الحصول على ApiService من RetrofitClient بدون بناء Retrofit في كل ضغطة
+        this.api = RetrofitClient.getClient().create(ApiService.class);
     }
 
     @NonNull
@@ -40,37 +47,56 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull JobViewHolder holder, int position) {
         Job job = jobList.get(position);
-        holder.tvTime.setText(job.getCreateTime());
-        holder.tvJobTitle.setText(job.getTitle());
-        holder.tvCompany.setText(job.getWorkPlace());
-        holder.tvCode.setText(job.getWorkField().getName());
-        holder.tvCategory.setText(job.getEducationField().getName());
-    //   holder.tvCategory.setText(job.getCountryOfGraduation().getName());
-        holder.tvSalary.setText(job.getEmploymentType());
-        holder.tvYears.setText(String.valueOf(job.getExperienceYear()));
-        holder.tvDays.setText(String.valueOf(job.getCountryOfResidence()));
-        holder.tvDescription.setText(job.getFileDescription());
 
-//        if (job.getWork_experience() != null) {
-//            holder.tvExpire.setText(job.getWork_experience().format(String.valueOf(dateFormatter)));
-//        } else {
-//            holder.tvExpire.setText("N/A");
-//        }
+        if (job.isFavorite()) {
+            holder.favoriteIcon.setImageResource(R.drawable.img_10);
+        } else {
+            holder.favoriteIcon.setImageResource(R.drawable.bookmark);
+        }
 
-         holder.tvViews.setText(String.valueOf(job.getWatchesCount()));
-        holder.layoutSkills.removeAllViews();
-//        for (String skill : job.getSkills()) {
-//            TextView skillView = new TextView(context);
-//            skillView.setText(skill);
-//            skillView.setBackgroundResource(R.drawable.shape2);
-//            skillView.setPadding(16, 8, 16, 8);
-//            skillView.setTextColor(context.getResources().getColor(R.color.primary));
-//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-//                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//            params.setMargins(8, 0, 8, 0);
-//            skillView.setLayoutParams(params);
-//            holder.layoutSkills.addView(skillView);
-//        }
+        holder.tvTime.setText(safeText(job.getCreateTime()));
+        holder.tvJobTitle.setText(safeText(job.getTitle()));
+        holder.tvCompany.setText(safeText(job.getBusinessMan().getBusinessName()));
+
+        Glide.with(context)
+                .load(job.getBusinessMan().getImageUrl())
+                .placeholder(R.drawable.img_33)
+                .error(R.drawable.img_33)
+                .into(holder.tvCodeImage);
+
+        holder.tvCategory.setText(job.getEducationField() != null ? safeText(job.getEducationField().getName()) : "N/A");
+        holder.tvSalary.setText(safeText(job.getEmploymentType()));
+        holder.tvYears.setText(job.getExperienceYear() != null ? safeText(job.getExperienceYear().getName()) : "N/A");
+        holder.tvExpire.setText(String.valueOf(job.getExpireDate()) != null ? safeText(String.valueOf(job.getExpireDate())) : "N/A");
+        holder.tvDescription.setText(safeText(job.getFileDescription()));
+        holder.tvViews.setText(String.valueOf(job.getWatchesCount()));
+        holder.WorkFieldId.setText(String.valueOf(job.getWorkFieldId()));
+        holder.tvDays.setText(String.valueOf(job.getJobValidUnite()));
+
+        holder.favoriteIcon.setOnClickListener(v -> {
+            holder.favoriteIcon.setEnabled(false);
+
+            // ✅ استخدام api الجاهز دون بناء Retrofit جديد
+            api.markJobAsFavorite(token, job.getId()).enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    holder.favoriteIcon.setEnabled(true);
+                    if (response.isSuccessful()) {
+                        Toast.makeText(context, "Added to favorites!", Toast.LENGTH_SHORT).show();
+                        holder.favoriteIcon.setImageResource(R.drawable.img_10);
+                        job.setFavorite(true);
+                    } else {
+                        Toast.makeText(context, "Failed to add to favorites", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    holder.favoriteIcon.setEnabled(true);
+                    Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
     }
 
     @Override
@@ -78,32 +104,28 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         return jobList.size();
     }
 
-    public static class JobViewHolder extends RecyclerView.ViewHolder {
+    public void updateList(List<Job> newList) {
+        this.jobList = newList;
+        notifyDataSetChanged();
+    }
 
-        TextView tvTime, tvJobTitle, tvCompany, tvCode, tvCategory ,tvViews,
+    private String safeText(String value) {
+        return value != null ? value : "N/A";
+    }
+
+    public class JobViewHolder extends RecyclerView.ViewHolder {
+
+        TextView tvTime, tvJobTitle, tvCompany, WorkFieldId, tvCategory, tvViews,
                 tvSalary, tvYears, tvDays, tvDescription, tvExpire;
         LinearLayout layoutSkills;
+        ImageView tvCodeImage, favoriteIcon;
 
         public JobViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(v -> {
-                int position = getAdapterPosition();
-                if (position != RecyclerView.NO_POSITION) {
-                    Job selectedCrop = jobList.get(position);
-                    Intent intent = new Intent(context, JobDetails.class);
-                    intent.putExtra("COURSE_ID", selectedCrop.getId());
-
-                    context.startActivity(intent);
-
-                }
-
-            });
-
             tvTime = itemView.findViewById(R.id.tvTime);
             tvJobTitle = itemView.findViewById(R.id.tvJobTitle);
             tvCompany = itemView.findViewById(R.id.tvCompany);
-            tvCode = itemView.findViewById(R.id.pure);
             tvCategory = itemView.findViewById(R.id.tvCategory);
             tvSalary = itemView.findViewById(R.id.tvSalary);
             tvYears = itemView.findViewById(R.id.Years);
@@ -112,7 +134,19 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
             tvExpire = itemView.findViewById(R.id.tvExpire);
             layoutSkills = itemView.findViewById(R.id.layoutSkills);
             tvViews = itemView.findViewById(R.id.tvViews);
+            WorkFieldId = itemView.findViewById(R.id.workFieldId);
+            favoriteIcon = itemView.findViewById(R.id.imgLike);
+            tvCodeImage = itemView.findViewById(R.id.tvCodeImage);
 
+            itemView.setOnClickListener(v -> {
+                int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    Job selectedJob = jobList.get(position);
+                    Intent intent = new Intent(context, JobDetails.class);
+                    intent.putExtra("COURSE_ID", selectedJob.getId());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }

@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -20,8 +19,7 @@
             android:textColor="#333333"
             android:layout_marginBottom="16dp" />
 
-        <!-- Item Template -->
-        <!-- You can repeat this block for each setting -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -53,9 +51,10 @@
                 />
         </LinearLayout>
 
-        <!-- كرر هذا البلوك مع تغيير النص والأيقونة فقط -->
-        <!-- FAQs -->
+
         <LinearLayout
+            android:id="@+id/faqs"
+
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_card"
@@ -87,6 +86,7 @@
         </LinearLayout>
 
         <LinearLayout
+           android:id="@+id/helpand_feedback"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_card"
@@ -117,6 +117,7 @@
                 />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/privacy_policy_btn"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_card"
@@ -147,6 +148,7 @@
                 />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/ll_language"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="@drawable/bg_card"

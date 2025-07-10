@@ -15,12 +15,12 @@ public class NotRegisteredBottomSheet extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.bottom_sheet_not_registered, container, false);
 
         view.findViewById(R.id.btnLogin).setOnClickListener(v -> {
-            // مثال: فتح شاشة تسجيل الدخول
-         //    startActivity(new Intent(getContext(), LoginActivity.class));
+            // فتح شاشة تسجيل الدخول
+
         });
 
         view.findViewById(R.id.btnSignup).setOnClickListener(v -> {
-            // مثال: فتح شاشة التسجيل
+            //  فتح شاشة التسجيل
            // startActivity(new Intent(getContext(), SignupActivity.class));
         });
 

@@ -55,6 +55,7 @@
                 android:background="@drawable/img_16" />
 
             <ImageView
+                android:id="@+id/notification_ic_btn"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_gravity="center_vertical"

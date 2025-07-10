@@ -2,6 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -10,18 +16,53 @@
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:name=".MyApplication"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Job"
         tools:targetApi="31">
+
+        <activity
+            android:name=".JobDetails"
+            android:exported="true">
+
+            <!-- الروابط العادية -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="fursaty.kicklance.com"
+                    android:pathPrefix="/job/"
+                    android:scheme="https" />
+            </intent-filter>
+
+            <!-- روابط التطبيق المباشرة -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="job"
+                    android:scheme="fursaty" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".HelpFeedback"
+            android:exported="false" />
+        <activity
+            android:name=".JobSearchBottomSheet"
+            android:exported="false"
+            tools:ignore="Instantiatable" />
         <activity
             android:name=".FAQS"
             android:exported="false" />
         <activity
             android:name=".CompanyDetails"
-            android:exported="false" />
-        <activity
-            android:name=".JobDetails"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
