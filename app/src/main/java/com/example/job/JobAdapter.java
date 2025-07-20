@@ -26,14 +26,13 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
 
     private Context context;
     private List<Job> jobList;
-    private ApiService api; // ✅ إضافة متغير ApiService لاستخدامه مرة واحدة
+    private ApiService api;
     String token = "Bearer 146|NmNVeKL3hmU9GJGrSf3rzFYDlUAGSM3FOIrJc3pr";
 
     public JobAdapter(Context context, List<Job> jobList) {
         this.context = context;
         this.jobList = jobList;
 
-        // ✅ الحصول على ApiService من RetrofitClient بدون بناء Retrofit في كل ضغطة
         this.api = RetrofitClient.getClient().create(ApiService.class);
     }
 
@@ -49,6 +48,7 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         Job job = jobList.get(position);
 
         if (job.isFavorite()) {
+
             holder.favoriteIcon.setImageResource(R.drawable.img_10);
         } else {
             holder.favoriteIcon.setImageResource(R.drawable.bookmark);
@@ -76,7 +76,6 @@ public class JobAdapter extends RecyclerView.Adapter<JobAdapter.JobViewHolder> {
         holder.favoriteIcon.setOnClickListener(v -> {
             holder.favoriteIcon.setEnabled(false);
 
-            // ✅ استخدام api الجاهز دون بناء Retrofit جديد
             api.markJobAsFavorite(token, job.getId()).enqueue(new Callback<ResponseBody>() {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

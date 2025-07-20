@@ -30,8 +30,9 @@ public class SettingFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_setting, container, false);
-        LinearLayout linearLayout= view.findViewById(R.id.helpand_feedback);
+        LinearLayout helpand_feedback= view.findViewById(R.id.helpand_feedback);
         LinearLayout ll_language= view.findViewById(R.id.ll_language);
+        LinearLayout Notification_BTN= view.findViewById(R.id.notification_btn);
         LinearLayout faqs= view.findViewById(R.id.faqs);
         LinearLayout privacy_policy_btn= view.findViewById(R.id.privacy_policy_btn);
         ll_language.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +41,17 @@ public class SettingFragment extends Fragment {
                 showLanguageSelector(requireContext());
             }
         });
-        linearLayout.setOnClickListener(new View.OnClickListener() {
+        Notification_BTN.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View bottomSheetView = LayoutInflater.from(requireContext())
+                        .inflate(R.layout.notification_settings_sheet, null);
+                BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(requireContext());
+                bottomSheetDialog.setContentView(bottomSheetView);
+                bottomSheetDialog.show();
+            }
+        });
+        helpand_feedback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getContext(), HelpFeedback.class);

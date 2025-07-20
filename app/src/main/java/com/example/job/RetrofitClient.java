@@ -20,12 +20,10 @@ public class RetrofitClient {
     public static Retrofit getClient() {
         if (retrofit == null) {
             OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
-
             httpClient.addInterceptor(chain -> {
                 Request original = chain.request();
                 HttpUrl originalUrl = original.url();
-               // https://fursaty.kicklance.com/ar/api/job-seeker/all-jobs
-                String urlWithLanguage = languageManager.getUrlWithLanguage("https://fursaty.kicklance.com/ar/api/job-seeker/all-jobs");
+                String urlWithLanguage = languageManager.getUrlWithLanguage(String.valueOf(originalUrl));
                 Request.Builder requestBuilder = original.newBuilder()
                         .url(urlWithLanguage);
 
@@ -45,4 +43,3 @@ public class RetrofitClient {
         retrofit = null;
     }
 }
-

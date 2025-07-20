@@ -85,6 +85,7 @@ public class CompanyDetails extends AppCompatActivity {
         tvEmployeeCount.setText(EmployeeNo != null ? EmployeeNo : "N/A");
         tvCompanyId.setText(WorkFieldId1 != null ? WorkFieldId1 : "N/A");
         tvCompanyDescription.setText(Bio != null ? Bio : "N/A");
+
         read_mor_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

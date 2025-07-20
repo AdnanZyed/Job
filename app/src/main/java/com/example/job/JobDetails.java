@@ -1,12 +1,12 @@
 package com.example.job;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,7 @@ public class JobDetails extends AppCompatActivity {
     private static final String BASE_URL = "https://fursaty.kicklance.com/";
     private static Retrofit retrofit;
     private TextView linearLayout;
+    private ApiService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,9 @@ public class JobDetails extends AppCompatActivity {
         TextView job_type = findViewById(R.id.job_type);
         TextView work_field = findViewById(R.id.work_field);
         ImageView ImgShare1 = findViewById(R.id.imgShare1);
+        Button ApplpyBtn = findViewById(R.id.apply_btn);
         ImageView tvCodeImage1 = findViewById(R.id.tvCodeImage1);
+        ImageView bookmark_btn = findViewById(R.id.imgLike1);
         TextView country_of_employment = findViewById(R.id.country_of_employment);
         TextView salary = findViewById(R.id.salary);
         TextView required_experience = findViewById(R.id.required_experience);
@@ -68,6 +71,21 @@ public class JobDetails extends AppCompatActivity {
 
         linearLayout = findViewById(R.id.tvJobTitle1);
 
+        ApplpyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                applyForJob();
+            }
+        });
+        bookmark_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                NotRegisteredBottomSheet bottomSheet = new NotRegisteredBottomSheet();
+                bottomSheet.show(getSupportFragmentManager(), "NotRegisteredBottomSheet");
+
+            }
+        });
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +102,7 @@ public class JobDetails extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        Log.e("Adnan", "Job ID: " + Id);
+      //  Log.e("Adnan", "Job ID: " + Id);
 
         ImgShare1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,7 +221,6 @@ public class JobDetails extends AppCompatActivity {
             Toast.makeText(JobDetails.this, "تم نسخ الرابط", Toast.LENGTH_SHORT).show();
             bottomSheetDialog.dismiss();
         });
-
         bottomSheetDialog.setContentView(bottomSheetView);
         bottomSheetDialog.show();
     }
@@ -255,5 +271,31 @@ public class JobDetails extends AppCompatActivity {
         } catch (Exception e) {
             Toast.makeText(this, "Messenger غير مثبت", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void applyForJob() {
+        Call<Void> call =apiService.applyForJob("Adnan", "123456789");
+
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.isSuccessful()) {
+                    NotRegisteredBottomSheet bottomSheet = new NotRegisteredBottomSheet();
+                    bottomSheet.show(getSupportFragmentManager(), "NotRegisteredBottomSheet");
+
+                    Toast.makeText(JobDetails.this, "تم التقديم بنجاح", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(JobDetails.this, "فشل التقديم:يجب انشاء حساب  " + response.code(), Toast.LENGTH_SHORT).show();
+                    NotRegisteredBottomSheet bottomSheet = new NotRegisteredBottomSheet();
+                    bottomSheet.show(getSupportFragmentManager(), "NotRegisteredBottomSheet");
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(JobDetails.this, "فشل الاتصال بالسيرفر", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }

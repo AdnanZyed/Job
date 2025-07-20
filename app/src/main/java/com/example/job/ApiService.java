@@ -5,6 +5,8 @@ import java.util.List;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
@@ -33,6 +35,12 @@ public interface ApiService {
     @GET("api/job/{id}")
     Call<JobDetailResponse> getItemShareById(@Path("id") int jobId);
 
+    @FormUrlEncoded
+    @POST("api/job-seeker/jobs/applied")
+    Call<Void> applyForJob(
+            @Field("job_id") String jobId,
+            @Field("user_id") String userId
+    );
 //    @GET("api/user/language")
 //    Call<LanguageResponse> getLanguagePreference();
 //

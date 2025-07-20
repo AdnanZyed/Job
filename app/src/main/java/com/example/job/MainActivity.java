@@ -45,7 +45,13 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         ImageView Notification_BTN  =findViewById(R.id.notification_ic_btn);
         ImageView filterIc = findViewById(R.id.filter_ic);
-
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+////        View indicator = findViewById(R.id.indicator);
+//
+//        bottomNavigationView.setOnNavigationItemSelectedListener(item -> {
+//            moveIndicatorToSelectedItem(item.getItemId());
+//            return true;
+//        });
         filterIc.setOnClickListener(v -> {
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("https://fursaty.kicklance.com/")
@@ -159,6 +165,35 @@ public class MainActivity extends AppCompatActivity
     public void onPointerCaptureChanged(boolean hasCapture) {
         super.onPointerCaptureChanged(hasCapture);
     }
+//    private void moveIndicatorToSelectedItem(int itemId) {
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+//        View indicator = findViewById(R.id.indicator);
+//
+//        indicator.setVisibility(View.VISIBLE);
+//
+//        bottomNavigationView.post(() -> {
+//            int menuItemIndex = 0;
+//            switch (itemId) {
+//                case R.id.jobs:
+//                    menuItemIndex = 0;
+//                    break;
+//                case R.id.bookmark:
+//                    menuItemIndex = 1;
+//                    break;
+//                case R.id.setting:
+//                    menuItemIndex = 2;
+//                    break;
+//                case R.id.profile:
+//                    menuItemIndex = 3;
+//                    break;
+//            }
+//
+//            int itemWidth = bottomNavigationView.getWidth() / bottomNavigationView.getMenu().size();
+//            int targetX = itemWidth * menuItemIndex + (itemWidth - indicator.getWidth()) / 2;
+//
+//            indicator.animate().x(targetX).setDuration(200).start();
+//        });
+//    }
 
 
 }
