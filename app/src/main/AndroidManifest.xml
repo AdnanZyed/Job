@@ -23,7 +23,7 @@
         tools:targetApi="31">
 
         <activity
-            android:name=".JobDetails"
+            android:name=".screens.JobDetails"
             android:exported="true">
 
             <intent-filter>
@@ -50,17 +50,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".HelpFeedback"
+            android:name=".screens.HelpFeedback"
             android:exported="false" />
         <activity
             android:name=".JobSearchBottomSheet"
             android:exported="false"
             tools:ignore="Instantiatable" />
         <activity
-            android:name=".FAQS"
+            android:name=".screens.FAQS"
             android:exported="false" />
         <activity
-            android:name=".CompanyDetails"
+            android:name=".screens.CompanyDetails"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

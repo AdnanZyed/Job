@@ -10,6 +10,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.job.Adapter.JobAdapter;
+import com.example.job.models.Job;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;

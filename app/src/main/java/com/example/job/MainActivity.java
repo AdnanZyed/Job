@@ -14,6 +14,14 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.job.API.ApiService;
+import com.example.job.Adapter.FilterAdapter;
+import com.example.job.Fragment.BookmarkFragment;
+import com.example.job.Fragment.JobsFragment;
+import com.example.job.Fragment.ProfileFragment;
+import com.example.job.Fragment.SettingFragment;
+import com.example.job.models.FilterItem;
+import com.example.job.models.FilterResponse;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
@@ -47,7 +55,6 @@ public class MainActivity extends AppCompatActivity
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        // Open Jobs Fragment by default
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.flFragment, jobsFragment)
