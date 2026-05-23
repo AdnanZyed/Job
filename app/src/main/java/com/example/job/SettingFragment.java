@@ -2,12 +2,15 @@ package com.example.job;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import retrofit2.Call;
@@ -33,7 +36,6 @@ public class SettingFragment extends Fragment {
         LinearLayout helpand_feedback= view.findViewById(R.id.helpand_feedback);
         LinearLayout ll_language= view.findViewById(R.id.ll_language);
         LinearLayout Notification_BTN= view.findViewById(R.id.notification_btn);
-        LinearLayout faqs= view.findViewById(R.id.faqs);
         LinearLayout privacy_policy_btn= view.findViewById(R.id.privacy_policy_btn);
         ll_language.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,13 +68,7 @@ public class SettingFragment extends Fragment {
 
             }
         });
-        faqs.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getContext(), FAQS.class);
-                startActivity(intent);
-            }
-        });
+
         return view;
     }
     private void fetchPrivacyData() {
@@ -126,20 +122,45 @@ public class SettingFragment extends Fragment {
         Button btnEnglish = view.findViewById(R.id.btnEnglish);
         Button btnArabic = view.findViewById(R.id.btnArabic);
 
+        // إعداد الأيقونة
+        Drawable checkIcon = ContextCompat.getDrawable(context, R.drawable.ic_check);
+        int iconPadding = 16; // padding بين الأيقونة والنص
+
+        // إزالة جميع الأيقونات من البداية
+        btnEnglish.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+        btnArabic.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
+
+        // إظهار الأيقونة بجانب اللغة الحالية
+        String currentLang = langManager.getLanguage();
+        if ("ar".equals(currentLang)) {
+            btnArabic.setCompoundDrawablesWithIntrinsicBounds(checkIcon, null, null, null);
+            btnArabic.setCompoundDrawablePadding(iconPadding);
+        } else {
+            btnEnglish.setCompoundDrawablesWithIntrinsicBounds(checkIcon, null, null, null);
+            btnEnglish.setCompoundDrawablePadding(iconPadding);
+        }
+
         btnEnglish.setOnClickListener(v -> {
             langManager.setLanguage("en");
+            btnEnglish.setCompoundDrawablesWithIntrinsicBounds(checkIcon, null, null, null);
+            btnEnglish.setCompoundDrawablePadding(iconPadding);
+            btnArabic.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             refreshApp(context);
             dialog.dismiss();
         });
 
         btnArabic.setOnClickListener(v -> {
             langManager.setLanguage("ar");
+            btnArabic.setCompoundDrawablesWithIntrinsicBounds(checkIcon, null, null, null);
+            btnArabic.setCompoundDrawablePadding(iconPadding);
+            btnEnglish.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
             refreshApp(context);
             dialog.dismiss();
         });
 
         dialog.show();
     }
+
 
     private void refreshApp(Context context) {
         Intent intent = new Intent(context, MainActivity.class);

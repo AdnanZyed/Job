@@ -23,7 +23,7 @@ public class RetrofitClient {
             httpClient.addInterceptor(chain -> {
                 Request original = chain.request();
                 HttpUrl originalUrl = original.url();
-                String urlWithLanguage = languageManager.getUrlWithLanguage(String.valueOf(originalUrl));
+                String urlWithLanguage = languageManager.getUrlWithLanguage("https://fursaty.kicklance.com/ar/api/job-seeker/all-jobs");
                 Request.Builder requestBuilder = original.newBuilder()
                         .url(urlWithLanguage);
 
